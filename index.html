@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Panel find</title>
+  </head>
+  <body class="bg-gray-800 flex top-0 left-0 right-0 bottom-0 absolute text-white">
+    <div class="bg-gray-600 m-2 p-2 flex-grow flex-col flex">
+      Field:
+      <input id="inputField" class="m-2 p-2 text-black" placeholder="column name" />
+
+      Input
+      <textarea
+        id="input"
+        class="m-2 p-2 flex-grow text-black"
+        placeholder="paste column from excel"
+      >
+      </textarea>
+    </div>
+    <div class="bg-gray-600 m-2 p-2 flex-grow flex flex-col">
+      Output
+      <textarea
+        id="output"
+        class="m-2 p-2 flex-grow text-black"
+        readonly
+        placeholder="auto generated"
+      >
+      </textarea>
+    </div>
+  </body>
+  <script>
+    const inputData = document.getElementById("input");
+    const inputField = document.getElementById("inputField");
+    const outputData = document.getElementById("output");
+
+    function update() {
+      try {
+        const field = inputField.value.trim();
+        const value = inputData.value.trim();
+        const rows = value.split("\n");
+        const data = rows.map((row) => `"${field}":"${row}" `);
+        outputData.value = data.join('');
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    inputData.addEventListener("input", update);
+    inputField.addEventListener("input", update);
+  </script>
+</html>
